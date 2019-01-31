@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>在Vue中同时使用动画和过渡</title>
+    <link rel="stylesheet" type="text/css" href="animate.css">
+    <style type="text/css">
+        .fade-enter,.fade-leave-to{
+            opacity:0;
+        }
+        .fade-enter-active,
+        .fade-leave-active{
+            transition:opacity 3s;
+        }
+
+    </style>
+</head>
+<body>
+<div id='app'>
+    <!-- 要想hello world有动画效果  要在外边套一个transition标签   有过度效果-->
+    <!-- enter-active-class leave-active-class  是vue提供的class  在使用animate.css时animated     如果想使用什么效果  就在animate.css找相应的类 appear appear-active-class 代表首次出现-->
+    <!-- 由于既有animate.css  又有transition   由于动画的时间不一样   如果我们想以transition为主  则加上type=transition -->
+    <!-- :duration   自定义动画时长 -->
+    <transition name="fade" 
+    
+    type="transition" 
+    enter-active-class="animated swing fade-enter-active" leave-active-class="animated shake fade-leave-active" appear appear-active-class="animated swing">
+        <div v-if="show">
+            Hello  world
+        </div>
+    </transition>
+    <button @click="handleCluck">切换</button>
+</div>
+<script type="text/javascript" src='vue.js'></script>
+<script type="text/javascript">
+
+    var app=new Vue({
+        el:'#app',
+
+        data:{
+           mes:'<h1>宝宝</h1>',
+           show:true
+        },
+        methods:{
+            handleCluck:function(){
+                this.show=!this.show
+            }    
+        }
+    })
+
+</script>
+
+</body>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Vue中</title>
+    <link rel="stylesheet" type="text/css" href="animate.css">
+    <style type="text/css">
+        .v-enter,.v-leave-to{
+            opacity:0;
+        }
+        .v-enter-active,.v-leave-active{
+            transition:opacity 2s;
+        }
+    </style>
+</head>
+<body>
+<div id='app'>
+
+    <transition mode="out-in">
+        <!-- 注意 由于dom的复用   这里需要加key -->
+        <!-- mode  用于配置多个元素动画的切换 -->
+        <div v-if="show" key="hello">
+            Hello  world
+        </div>
+        <div v-else key="bye">Bye world</div>
+    </transition>
+    <button @click="handleCluck">切换</button>
+</div>
+<script type="text/javascript" src='vue.js'></script>
+<script type="text/javascript">
+
+    var app=new Vue({
+        el:'#app',
+
+        data:{
+           mes:'<h1>宝宝</h1>',
+           show:true
+        },
+        methods:{
+            handleCluck:function(){
+                this.show=!this.show
+            }    
+        }
+    })
+
+</script>
+
+</body>

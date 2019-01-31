@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>父子组件间的数据传递</title>
+
+</head>
+<body>
+<div id='app'>
+    <!-- 父组件给子组件通过属性传值  加:传的是数字  不加:相当于传的是字符串 -->
+    <counter :count='0' @inc='handleIncrease'></counter>
+    <counter :count='1' @inc='handleIncrease'></counter>
+    <div>{{total}}</div>
+</div>
+<script type="text/javascript" src='vue.js'></script>
+<script type="text/javascript">
+    var counter={
+        template:'<div @click="handleClick">{{number}}</div>',
+        props:['count'],
+        data:function(){
+            return {
+                number:this.count,   //将this.count赋值给number
+            }
+        },
+        methods:{
+            handleClick:function(){
+                //直接操作 this.count++  会报错   父组件可以随意传递参数给子组件  子组件接收参数  但是不可以随意更改参数 这就是Vue的单向数据流  可以通过复制此参数  来解决这个问题
+                // this.count++;
+                this.number++;
+
+                //子组件向父组件传值
+                this.$emit('inc',1);   //1可以this.number++一次的步长
+                console.log(this.number)
+            }
+        }
+    }
+    var app=new Vue({
+        el:'#app',
+
+        data:{
+           total:1
+        },
+        components:{
+            counter:counter
+        },
+        methods:{
+            handleIncrease:function(type){
+                this.total+=type;
+            }
+        }
+    })
+
+</script>
+
+</body>

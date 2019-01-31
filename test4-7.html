@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>作用域插槽</title>
+
+</head>
+<body>
+<div id='app'>
+   
+    <child>
+        <!-- 固定写法   作用域插槽 使用场景 1.子组件循环时   2.某一部分的dom结构由外部决定时-->
+        <template slot-scope='props'>
+                <!-- slot-scope用来接收子组件的item -->
+                <li>{{props.item}}</li>
+        </template>
+    <child>
+   
+</div>
+<script type="text/javascript" src='vue.js'></script>
+<script type="text/javascript">
+    Vue.component('child',{
+        template:'<div><slot v-for="item of list" :item="item"></slot></div>', 
+        data:function(){
+            return {
+                list:[1,2,3,4]
+            }
+        }
+    })
+    
+    var app=new Vue({
+        el:'#app',
+
+        data:{
+           mes:'<h1>宝宝</h1>'
+        },
+        methods:{
+
+       }
+    })
+
+</script>
+
+</body>

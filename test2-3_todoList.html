@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>todoList</title>
+</head>
+<body>
+<div id='app'>
+	<input type="text" name="" v-model="inputValue">
+	<button v-on:click="handleClick">提交</button>
+	<ul>
+		<li v-for='item in list'>{{item}}</li>
+	</ul>
+</div>
+<script type="text/javascript" src='vue.js'></script>
+<script type="text/javascript">
+	var app=new Vue({
+		el:'#app',
+		data:{
+			list:[],
+			inputValue:''
+		},
+		methods:{
+			handleClick:function(){
+				app.list.push(app.inputValue)
+				app.inputValue='';
+			}
+		}
+	})
+	
+</script>
+
+</body>

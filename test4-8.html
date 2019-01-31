@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>动态组件与v-once指令</title>
+
+</head>
+<body>
+<div id='app'>
+   <!-- 动态组件 -->
+    <component :is='type'></component>  
+    <button @click='handleClick'>change</button>
+   
+</div>
+<script type="text/javascript" src='vue.js'></script>
+<script type="text/javascript">
+    Vue.component('child-one',{
+        template:'<div v-once>child-one</div>',     //可以提高性能 当第一次渲染后就会放到内存中  需要时再次从内存里提出来
+        
+    })
+    Vue.component('child-two',{
+        template:'<div v-once>child-two</div>', 
+        
+    })
+    
+    var app=new Vue({
+        el:'#app',
+
+        data:{
+           mes:'<h1>宝宝</h1>',
+           type:'child-one'
+        },
+        methods:{
+            handleClick:function(){
+                this.type=this.type=='child-one'?'child-two':'child-one'
+            }
+       }
+    })
+
+</script>
+
+</body>

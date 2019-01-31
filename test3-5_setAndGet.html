@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>计算属性的set和get</title>
+
+</head>
+<body>
+<div id='app'>
+
+  {{fullName}}
+</div>
+<script type="text/javascript" src='vue.js'></script>
+<script type="text/javascript">
+
+    var app=new Vue({
+        el:'#app',
+
+        data:{
+            firstName:'于',
+            lastName:'甜甜'
+        },
+       //计算属性
+        computed:{
+            fullName:{
+                //得到fullName这个属性  当firstName或者lastName改变时去重新计算
+                get:function(){
+                    return this.firstName+' '+this.lastName;
+                },
+                //设置fullName这个属性时  可以接收到一个value值
+                set:function(value){
+                    //在控制台里改变fullName来改变lastName,firstName
+                   var arr=value.splice(' ');
+                    this.firstName=arr[0];
+                    this.firstName=arr[1];
+                    console.log(value);
+                }
+            }
+        }
+    })
+
+</script>
+
+</body>

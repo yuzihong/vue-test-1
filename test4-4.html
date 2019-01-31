@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>给组件绑定原生事件</title>
+
+</head>
+<body>
+<div id='app'>
+  <!--   在父组件上绑定原生事件  有两种方式   1.通过在子组件事件里$emit触发父组件的自定义事件   2.通过事件修饰符 native -->
+    <child @click.native='handleClick'><child>
+
+</div>
+<script type="text/javascript" src='vue.js'></script>
+<script type="text/javascript">
+    Vue.component('child',{
+        template:'<div> hello world</div>'
+    })
+    var app=new Vue({
+        el:'#app',
+
+        data:{
+           mes:'<h1>宝宝</h1>'
+        },
+        methods:{
+            handleClick:function(){
+                alert('click')
+            }
+        }
+    })
+
+</script>
+
+</body>

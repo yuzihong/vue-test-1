@@ -1,0 +1,16 @@
+1. package.json:      项目依赖包 第三方模块的依赖
+2. package-lock.json: 安装第三方依赖包的版本
+3. .eslintrc.js :	 错误的规范   按照规范写  才不会提示
+4. .eslintignore:    里面的文件不会被eslintrc.js进行错误检测
+5. .editorconfig :    配置编辑器里的语法
+6. static:            放一些静态资源  比如图片  css
+7. src:   放项目的源代码 
+   a.  main.js :项目的入口文件
+   b.  App.vue :项目的根组件
+   c.  router->index.js :路由
+   d. components:项目的组件
+   e. assets:项目的图片
+ 8. build: webpack打包的内容 
+ 	a.webpack.base.conf.js    基础webpack配置项
+ 	b.webpack.dev.conf.js     开发环境
+ 	c.webpack.prod.conf.js    线上

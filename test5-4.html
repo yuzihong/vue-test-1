@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Vue中的Js动画与Velocit.js结合</title>
+    <link rel="stylesheet" type="text/css" href="animate.css">
+    <script type="text/javascript" src="velocity.js"></script>
+    <style type="text/css">
+       
+
+    </style>
+</head>
+<body>
+<div id='app'>
+    <transition name="fade" 
+    @before-enter="handleBeforeEnter"
+    @enter="handleEnter"
+    @after-enter="handleAfter"
+    >
+        <div v-if="show">
+            Hello  world
+        </div>
+    </transition>
+    <button @click="handleCluck">切换</button>
+</div>
+<script type="text/javascript" src='vue.js'></script>
+<script type="text/javascript">
+
+    var app=new Vue({
+        el:'#app',
+
+        data:{
+           mes:'<h1>宝宝</h1>',
+           show:true
+        },
+        methods:{
+            handleCluck:function(){
+                this.show=!this.show
+            },
+            // handleBeforeEnter:function(el){
+            //     //即将显示时   el 代表的是元素
+            //     el.style.color="red";
+
+            // } ,
+            // handleEnter:function(el,done){
+            //     //真正运行动画时
+            //     setTimeout(()=>{
+            //         el.style.color='green';
+            //         done();    //   一定加这个回调 代表动画可以结束了 done被调用完会触发after-enter事件
+            //     },2000)
+
+            // },
+            // handleAfter:function(el){
+            //         el.style.color='black';
+            // } 
+
+
+            //使用velocity.js
+             handleBeforeEnter:function(el){
+                //即将显示时   
+                el.style.opacity=0;
+
+            } ,
+            handleEnter:function(el,done){
+                //真正运行动画时
+                Velocity(el,{
+                        opacity:1
+                    },{
+                        duration:1000,
+                        complete:done
+                    
+                })
+
+            },
+            handleAfter:function(el){
+                    el.style.color='black';
+            } 
+        }
+    })
+
+</script>
+
+</body>

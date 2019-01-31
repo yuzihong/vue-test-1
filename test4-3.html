@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>组件参数校验与非props特性</title>
+
+</head>
+<body>
+<div id='app'>
+
+    <child content='hello world'></child>
+</div>
+<script type="text/javascript" src='vue.js'></script>
+<script type="text/javascript">
+    Vue.component('child',{
+        props:{
+            // content:[Number]    //可以检查父组件传递参数的类型
+            content:{
+                type:String,
+                // required:true,   //content为必传参数
+                default:'default value',   //当没有传递content参数时  页面展示的是default里的值
+                //自定义校验器
+                validator:function(value){
+                    return (value.length>5);    //校验参数的长度   要大于5才可以
+                },
+            }
+        },
+        template:'<div>{{content}}</div>'
+    })
+    var app=new Vue({
+        el:'#app',
+
+        data:{
+           mes:'<h1>宝宝</h1>'
+        },
+        methods:{
+
+        }
+    })
+
+</script>
+
+</body>

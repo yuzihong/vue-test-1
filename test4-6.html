@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>在Vue中使用插槽</title>
+
+</head>
+<body>
+<div id='app'>
+    <!-- 当父组件向子组件传递dom元素时   可以使用插槽 -->
+    <child>
+        <!-- 父组件传递给子组件的内容 -->
+      <h1>hello world</h1>      
+    <child>
+    <body-content>
+        <!-- 当子组件需要插入两段内容时可以这么使用 -->
+        <div slot='header'>header</div>
+        <div slot='footer'>footer</div>
+    </body-content>
+</div>
+<script type="text/javascript" src='vue.js'></script>
+<script type="text/javascript">
+    Vue.component('child',{
+        template:'<div><slot></slot></div>',     //slot标签就可以直接接收父组件里的  <h1>hello world</h1>      当父组件child   里面啥都没有时   而子组件依然有slot  在slot里可以设置默认值
+    })
+    Vue.component('body-content',{
+        template:'<div><slot name="header"></slot><div>content</div><slot name="footer"></slot></div>'
+    })
+    var app=new Vue({
+        el:'#app',
+
+        data:{
+           mes:'<h1>宝宝</h1>'
+        },
+        methods:{
+
+        }
+    })
+
+</script>
+
+</body>

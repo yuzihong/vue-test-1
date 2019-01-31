@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Vue中css动画原理</title>
+    <style type="text/css">
+        /*如果transition没有name=fade   则这些类的前缀是v   比如 v-enter*/
+        
+        .fade-enter{
+            opacity:0;
+        }       //第一帧时添加  
+        .fade-enter-active{
+            transition:opacity 3s;
+        }     //第二桢时添加
+        .fade-leave-to{
+           opacity:0;
+        }     //第二桢时添加
+        .fade-leave-active{
+             transition:opacity 3s;
+        }    //第一帧时添加  
+    </style>
+</head>
+<body>
+<div id='app'>
+    <!-- 要想hello world有动画效果  要在外边套一个transition标签   有过度效果 -->
+    <transition name="fade">
+        <div v-if="show">
+            Hello  world
+        </div>
+    </transition>
+    <button @click="handleCluck">切换</button>
+</div>
+<script type="text/javascript" src='vue.js'></script>
+<script type="text/javascript">
+
+    var app=new Vue({
+        el:'#app',
+
+        data:{
+           mes:'<h1>宝宝</h1>',
+           show:false
+        },
+        methods:{
+            handleCluck:function(){
+                this.show=!this.show
+            }    
+        }
+    })
+
+</script>
+
+</body>

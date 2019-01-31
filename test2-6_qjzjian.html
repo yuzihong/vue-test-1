@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>全局组件和私有组件</title>
+
+</head>
+<body>
+<div id='app'>
+    <input type="text" name="" v-model="inputValue">
+    <button v-on:click="handleClick">提交</button>
+    <ul>
+        <!--<li v-for='item in list'>{{item}}</li>-->
+        <todo-item  v-for='item in list' v-bind:content="item"></todo-item>
+        <!--通过v-bind给子组件传递一个值item-->
+    </ul>
+</div>
+<script type="text/javascript" src='vue.js'></script>
+<script type="text/javascript">
+//    Vue.component('todoItem',{
+//       props:['content'],   //props接收从父组件传递的值
+//        template:'<li>{{content}}</li>'   //要用差值表达式{{}}
+//    });    //全局组件
+
+var TodoItem={
+    props:['content'],   //props接收从父组件传递的值
+    template:'<li>{{content}}</li>'   //要用差值表达式{{}}
+}  //局部组件
+    var app=new Vue({
+        el:'#app',
+        components:{
+            TodoItem:TodoItem    //将局部组件注册
+        },
+        data:{
+            list:[],
+            inputValue:''
+        },
+        methods:{
+            handleClick:function(){
+                app.list.push(app.inputValue)
+                app.inputValue='';
+            }
+        }
+    })
+
+</script>
+
+</body>

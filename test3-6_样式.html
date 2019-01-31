@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Vue中的样式绑定</title>
+
+</head>
+<style>
+    .selected{
+        color:red;
+    }
+</style>
+<body>
+<div id='app'>
+    <!--对象法-->
+   <div @click="changeStyOne" :class="{selected:isSelectedOne}">
+        Hello World1
+   </div>
+    <!--数组法-->
+    <div @click="changeStyTwo" :class="[isSelectedTwo]">
+        Hello World2
+    </div>
+    <!--数组法-->
+    <div @click="changeStyThree" :class="isSelectedThree">
+        Hello World3
+    </div>
+
+    <!--内联样式  style='color:red'-->
+    <!--<div @click="changeStyFour" :style="styleObj">-->
+        <!--也可用数组-->
+        <div @click="changeStyFour" :style="[styleObj,{fontSize:'20px'}]">
+        Hello World4
+    </div>
+</div>
+<script type="text/javascript" src='vue.js'></script>
+<script type="text/javascript">
+
+    var app=new Vue({
+        el:'#app',
+        data:{
+            mes:'<h1>宝宝</h1>',
+            isSelectedOne:false,
+            isSelectedTwo:'',
+            isSelectedThree:[],
+            styleObj:{
+                color:'black'
+            }
+        },
+        methods:{
+            changeStyOne:function(){
+                this.isSelectedOne=!this.isSelectedOne;
+            },
+            changeStyTwo:function(){
+                this.isSelectedTwo=this.isSelectedTwo=='selected'?'':'selected'
+            },
+            changeStyThree:function(){
+
+                this.isSelectedThree.push('selected')
+            },
+            changeStyFour:function(){
+
+                this.styleObj.color= this.styleObj.color=='black'?'red':'black'
+            }
+        }
+    })
+
+</script>
+
+</body>

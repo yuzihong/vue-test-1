@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Vue的条件渲染</title>
+
+</head>
+<body>
+<div id='app'>
+    <!--注意点:v-if与v-else必须紧密相连  中间不能有其他元素  否则会报错-->
+    <!--input不加key时  比如在用户名的input里输入内容   改变show的值 展示邮箱名的input但是之前的输入的内容在这里又展示了出来  产生的原因是Vue在重新渲染时会尽量复用页面原先存在的组件  当加了key值时表示这是页面唯一存在的-->
+   <div v-if="show">
+       用户名: <input type="text" key="userName">
+   </div>
+    <div v-else>
+        邮箱名: <input type="text" key="emailName">
+    </div>
+</div>
+<script type="text/javascript" src='vue.js'></script>
+<script type="text/javascript">
+
+    var app=new Vue({
+        el:'#app',
+
+        data:{
+            show:false
+        },
+        methods:{
+
+        }
+    })
+
+</script>
+
+</body>

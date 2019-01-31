@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+ 
+<head>
+  <meta charset="utf-8">
+  <title>Vue demo</title>
+  <style type="text/css">
+  .bg {
+    background: #ccc;
+  }
+  </style>
+  <script src="https://cdn.bootcss.com/vue/2.1.7/vue.min.js"></script>
+  <script src="https://cdn.bootcss.com/vue-resource/1.3.1/vue-resource.min.js"></script>
+  <script type="text/javascript">
+  window.onload = function() {
+    new Vue({
+      el: '#box',
+      data: {
+        inputText: '',
+        text: '',
+        nowIndex: -1,
+        result: []
+      },
+      methods: {
+        show: function(ev) {
+          if (ev.keyCode == 38 || ev.keyCode == 40) {
+            console.log(111)
+            if (this.nowIndex < -1){
+              return;
+            }
+            if (this.nowIndex != this.result.length && this.nowIndex != -1) {
+              this.inputText = this.result[this.nowIndex];
+            }
+            return;
+          }
+          if (ev.keyCode == 13) {
+            window.open('https://www.baidu.com/s?wd=' + this.inputText, '_blank');
+            this.inputText = '';
+          }
+          this.text = this.inputText;
+          this.$http.jsonp('https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su', {
+            params: {
+              wd: this.inputText
+            },
+            jsonp: 'cb'
+          }).then(res => {
+            this.result = res.data.s;
+          })
+        },
+        down: function() {
+          this.nowIndex++;
+          if (this.nowIndex == this.result.length) {
+            this.nowIndex = -1;
+            this.inputText = this.text;
+          }
+        },
+        up: function() {
+          this.nowIndex--;
+          if (this.nowIndex < -1){
+            this.nowIndex = -1;
+            return;
+          }
+          if (this.nowIndex == -1) {
+            this.nowIndex = this.result.length;
+            this.inputText = this.text;
+          }
+        }
+      }
+    });
+  }
+  </script>
+</head>
+ 
+<body>
+  <div id="box">
+    <input type="text" placeholder="请输入搜索内容" v-model='inputText' @keyup='show($event)' @keydown.down='down()' @keydown.up.prevent='up()'>
+    <ul>
+      <li v-for="(item, index) in result" :class='{bg: index==nowIndex}'>
+        {{item}}
+      </li>
+    </ul>
+  </div>
+</body>
+ 
+</html>

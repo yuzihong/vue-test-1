@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>简单的组件间传值</title>
+
+</head>
+<body>
+<div id='app'>
+    <input type="text" name="" v-model="inputValue">
+    <button v-on:click="handleClick">提交</button>
+    <ul>
+        <!--<li v-for='item in list'>{{item}}</li>-->
+        <todo-item  v-for='(item,index) in list' v-bind:content="item" @delete="handleItemDelete" v-bind:index="index"></todo-item>
+        <!--父组件监听到子组件的delete事件就执行自己的handleItemDelete事件-->
+        <!--通过v-bind给子组件传递一个值item-->
+    </ul>
+</div>
+<script type="text/javascript" src='vue.js'></script>
+<script type="text/javascript">
+    var TodoItem={
+        props:['content','index'],   //props接收从父组件传递的值
+        template:'<li @click="handleItemClick">{{content}}</li>',   //要用差值表达式{{}}
+        methods:{
+            handleItemClick:function(){
+               this.$emit('delete',this.index);   //子组件发射一个delete事件
+            }
+        }
+    }  //局部组件
+    var app=new Vue({
+        el:'#app',
+        components:{
+            TodoItem:TodoItem    //将局部组件注册
+        },
+        data:{
+            list:[],
+            inputValue:''
+        },
+        methods:{
+            handleClick:function(){
+                app.list.push(app.inputValue)
+                app.inputValue='';
+            },
+            handleItemDelete:function(index){
+               this.list.splice(index,1)
+            }
+        }
+    })
+
+
+//    总结:父组件向子组件传值通过v-bind,子组件需要通过props来接收参数,而子组件向父组件传参通过$emit()通过事件触发,子组件触发的事件而父组件恰好也在监听,就能完成子组件像父组件传值
+</script>
+
+</body>

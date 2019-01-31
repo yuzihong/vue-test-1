@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>helloWord</title>
+</head>
+<body>
+<!-- <div id='app'>
+	<input type="text" name="" v-model="inputText" @keyup="keyboardUp">
+	<ul>
+		<li v-for="item of list" @click="handleclick">{{item | keyfilter}}</li>
+	</ul>
+</div>
+<script type="text/javascript" src='vue.js'></script>
+<script type="text/javascript">
+	var app=new Vue({
+		el:'#app',
+		data:{
+			list:['生活美好','热爱生活','加油自信','变成自己想要的样子','明天你好','现在你好','昨天你好'],
+			keywordArr:[],
+			inputText:''
+		},
+		methods:{
+			handleclick:function(){
+				console.log('我被点击了');
+			},
+			keyboardUp(){
+				console.log('抬起')
+				var te = this.$options.filters['keyfilter'];
+				console.log(te('filter'))
+        		// te('filter');
+			}
+		},
+		filters:{
+			keyfilter:function(val){
+				if(val.indexOf(this.inputText)>=0){
+					console.log('我进去了')
+					return val;
+				}
+			}
+		}
+	})
+	
+</script> -->
+ <div id="body">
+      <!--  <button @click='getLocal()'>调用本地过滤器</button> -->
+      <input type="text" name="" v-model="inputText" @keyup="getLocal()">
+	<ul>
+		<li v-for="item in searchArr" @click="handleClick(item)">{{item}}</li>
+	</ul>
+    </div>
+    <script type="text/javascript" src='vue.js'></script>
+    <script >
+     var vm= new Vue({
+            el:'#body',
+            data:{
+            	inputText:'',
+            	list:['生活美好','热爱生活','加油自信','变成自己想要的样子','明天你好','现在你好','昨天你好'],
+            	searchArr:[]
+            },
+            filters:{
+                testFilter2(){
+                    var that=this;
+                    vm.list.forEach(function(value,index){
+                    	if(value.indexOf(vm.inputText)>=0){
+                    		console.log(value)
+                    		vm.searchArr.push(value)
+                    	}
+                    })
+                    
+                }
+            },
+            methods:{
+                getLocal(){
+        			vm.searchArr=[];
+                    //使用this.$options.filters[]方式获取本地过滤器
+                    var te = this.$options.filters['testFilter2'];
+                    //调用本地过滤器
+                    te();
+                },
+                handleClick(val){
+                	this.inputText=val;
+                }
+            }
+        })
+    </script>
+
+</body>
+</html>
